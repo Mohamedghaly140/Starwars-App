@@ -11,7 +11,7 @@ interface FilmItemProps {
 const FilmItem = ({ film }: FilmItemProps) => {
   const id = film.url.split("/").filter(Boolean).pop();
   return (
-    <Link href={`/films/${id}`} asChild>
+    <Link href={`/films/${id}?title=${film.title}`} asChild>
       <TouchableOpacity>
         <View style={styles.container}>
           <Text style={styles.title}>{film.title}</Text>

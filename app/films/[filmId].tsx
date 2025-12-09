@@ -12,7 +12,10 @@ import {
 
 const FilmDetailsScreen = () => {
   const navigation = useNavigation();
-  const { filmId } = useLocalSearchParams<{ filmId: string }>();
+  const { filmId, title } = useLocalSearchParams<{
+    filmId: string;
+    title: string;
+  }>();
   const [film, setFilm] = useState<Film | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -34,9 +37,9 @@ const FilmDetailsScreen = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions?.({
-      title: film?.title || "",
+      title: title || "",
     });
-  }, [film, navigation]);
+  }, [title, navigation]);
 
   if (loading) {
     return (
