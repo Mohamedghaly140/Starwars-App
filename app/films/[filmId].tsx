@@ -1,17 +1,18 @@
 import { COLORS } from "@/constants/colors";
 import { Film } from "@/types/interfaces";
-import { useLocalSearchParams, useNavigation } from "expo-router";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { Stack, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
 const FilmDetailsScreen = () => {
-  const navigation = useNavigation();
   const { filmId, title } = useLocalSearchParams<{
     filmId: string;
     title: string;
@@ -19,6 +20,8 @@ const FilmDetailsScreen = () => {
   const [film, setFilm] = useState<Film | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const fetchFilm = async () => {
@@ -34,10 +37,6 @@ const FilmDetailsScreen = () => {
     };
     fetchFilm();
   }, [filmId]);
-
-  useLayoutEffect(() => {
-    navigation.setOptions?.({ title });
-  }, [title, navigation]);
 
   if (loading) {
     return (
@@ -57,6 +56,23 @@ const FilmDetailsScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Stack.Screen
+        options={{
+          title: title || "",
+          headerRight: ({ tintColor }) => (
+            <TouchableOpacity
+              onPress={() => setIsFavorite(!isFavorite)}
+              style={styles.favoriteButton}
+            >
+              <Ionicons
+                size={24}
+                color={tintColor}
+                name={isFavorite ? "heart" : "heart-outline"}
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <View style={styles.gap}>
         <Text style={styles.title}>{film?.title}</Text>
         <Text style={styles.detail}>Episode: {film?.episode_id}</Text>
@@ -110,5 +126,9 @@ const styles = StyleSheet.create({
   },
   gap: {
     gap: 8,
+  },
+  favoriteButton: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
