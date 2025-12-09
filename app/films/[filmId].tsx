@@ -36,9 +36,7 @@ const FilmDetailsScreen = () => {
   }, [filmId]);
 
   useLayoutEffect(() => {
-    navigation.setOptions?.({
-      title: title || "",
-    });
+    navigation.setOptions?.({ title });
   }, [title, navigation]);
 
   if (loading) {
