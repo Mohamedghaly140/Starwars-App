@@ -14,6 +14,9 @@ const FilmsLayout = () => {
         headerTitleStyle: {
           fontWeight: "bold",
         },
+        contentStyle: {
+          backgroundColor: COLORS.background,
+        },
       }}
     >
       <Stack.Screen name="index" options={{ title: "Films" }} />

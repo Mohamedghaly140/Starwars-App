@@ -15,7 +15,7 @@ const FilmItem = ({ film }: FilmItemProps) => {
       <TouchableOpacity>
         <View style={styles.container}>
           <Text style={styles.title}>{film.title}</Text>
-          <Text style={styles.episodeId}>EpisodeL {film.episode_id}</Text>
+          <Text style={styles.episodeId}>Episode: {film.episode_id}</Text>
           <Text style={styles.releaseDate}>Released: {film.release_date}</Text>
         </View>
       </TouchableOpacity>
